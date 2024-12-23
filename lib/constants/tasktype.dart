@@ -1,0 +1,1 @@
+enum TaskType{ movie, tv, note}
