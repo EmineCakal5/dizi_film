@@ -1,16 +1,41 @@
-import 'package:der_3/constants/tasktype.dart';
+import '../constants/tasktype.dart';
 
-class Task{
+class Task {
+  int? id;
+  TaskType type;
+  String title;
+  String description;
+  bool isCompleted;
+  String rate;
+
   Task({
+    this.id,
     required this.type,
     required this.title,
     required this.description,
-    required this.isCompleted,
+    this.isCompleted = false,
+    required this.rate,
+  });
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'type': type.index,
+      'title': title,
+      'description': description,
+      'isCompleted': isCompleted ? 1 : 0,
+      'rate': rate,
+    };
   }
-  );
-  final TaskType type;
-  final String title;
-  final String description;
-   bool isCompleted;
+
+  factory Task.fromMap(Map<String, dynamic> map) {
+    return Task(
+      id: map['id'],
+      type: TaskType.values[map['type']],
+      title: map['title'],
+      description: map['description'],
+      isCompleted: map['isCompleted'] == 1,
+      rate: map['rate'],
+    );
+  }
 }
